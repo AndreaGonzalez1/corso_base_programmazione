@@ -1,0 +1,47 @@
+parola = input("scrivi la parola da indovinare: ")
+indovinato = False
+tentativi = 6
+lettere_indovinate = []
+
+while not indovinato and tentativi > 0:
+    parola_da_mostrare = ""
+    for lettera in parola:
+        if lettera in lettere_indovinate:
+            parola_da_mostrare += lettera
+        else:
+            parola_da_mostrare += "_"
+    print(parola_da_mostrare)
+    lettera_utente = input("Indovina una lettera: ").lower()
+    lettera_già_indovinata = False
+    for lettera in lettere_indovinate:
+        if lettera == lettera_utente:
+            print("Hai già indovinato questa lettera, prova con un'altra.")
+            lettera_già_indovinata = True
+            break
+    
+    if not lettera_già_indovinata:
+        lettera_in_parola = False
+        for lettera in parola:
+            if lettera == lettera_utente:
+                print("Hai indovinato!")
+                lettere_indovinate.append(lettera_utente)
+                lettera_in_parola = True
+                break
+        if not lettera_in_parola:
+            print("Spiacente, la lettera non è nella parola.")
+            tentativi -= 1
+            print("Tentativi rimanenti:", tentativi)
+    parola_indovinata = True
+    for lettera in parola:
+        if lettera not in lettere_indovinate:
+            parola_indovinata = False
+            break
+    
+    if parola_indovinata:
+        indovinato = True
+if indovinato:
+    print("Complimenti, hai indovinato la parola:", parola)
+else:
+    print("Hai perso, la parola era:", parola)
+if tentativi == 1:
+    print("vuoi un aiuto?")
